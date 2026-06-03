@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
+const API_BASE = (import.meta.env.VITE_API_BASE || 'http://localhost:8000').replace(/\/$/, '');
 
 const DIMENSIONS = ['effectiveness', 'engagement', 'clarity', 'relevance'];
 const DIM_LABELS = { effectiveness: '📊 Effect.', engagement: '🎯 Engage.', clarity: '💡 Clarity', relevance: '🔗 Relev.' };

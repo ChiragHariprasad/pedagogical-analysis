@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
+const API_BASE = (import.meta.env.VITE_API_BASE || 'http://localhost:8000').replace(/\/$/, '');
 
 export default function LoginPage({ onLoginSuccess }) {
   const [error, setError] = useState('');
