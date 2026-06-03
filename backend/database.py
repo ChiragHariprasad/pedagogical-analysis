@@ -22,19 +22,66 @@ DB_PATH: str = os.environ.get(
     os.path.join(os.path.dirname(os.path.abspath(__file__)), "survey_data.db")
 )
 
+DATABASE_URL: str | None = os.environ.get("DATABASE_URL")
+IS_POSTGRES: bool = bool(DATABASE_URL and (DATABASE_URL.startswith("postgres://") or DATABASE_URL.startswith("postgresql://")))
+
+if IS_POSTGRES:
+    import psycopg2
+    from psycopg2.extras import RealDictCursor
+
+
+class DBConnection:
+    """A dual-database connection wrapper supporting SQLite and PostgreSQL.
+
+    Encapsulates differences in placeholders (?, %s), schema keywords, and cursors.
+    """
+
+    def __init__(self) -> None:
+        self.is_postgres = IS_POSTGRES
+        if self.is_postgres:
+            url = DATABASE_URL
+            if url and url.startswith("postgres://"):
+                url = url.replace("postgres://", "postgresql://", 1)
+            self.conn = psycopg2.connect(url)
+            self.cursor = self.conn.cursor(cursor_factory=RealDictCursor)
+        else:
+            self.conn = sqlite3.connect(DB_PATH)
+            self.conn.execute("PRAGMA journal_mode=WAL;")
+            self.conn.execute("PRAGMA foreign_keys=ON;")
+            self.conn.row_factory = sqlite3.Row
+            self.cursor = None
+
+    def execute(self, query: str, params: tuple = ()) -> Any:
+        if self.is_postgres:
+            query = query.replace("?", "%s")
+            self.cursor.execute(query, params)
+            return self.cursor
+        else:
+            return self.conn.execute(query, params)
+
+    def executescript(self, script: str) -> None:
+        if self.is_postgres:
+            self.cursor.execute(script)
+        else:
+            self.conn.executescript(script)
+
+    def commit(self) -> None:
+        self.conn.commit()
+
+    def close(self) -> None:
+        if self.is_postgres and self.cursor:
+            self.cursor.close()
+        self.conn.close()
+
 
 # ---------------------------------------------------------------------------
 # Connection helper
 # ---------------------------------------------------------------------------
 
 
-def _get_conn() -> sqlite3.Connection:
-    """Return a new connection with WAL mode and foreign-key enforcement."""
-    conn = sqlite3.connect(DB_PATH)
-    conn.execute("PRAGMA journal_mode=WAL;")
-    conn.execute("PRAGMA foreign_keys=ON;")
-    conn.row_factory = sqlite3.Row
-    return conn
+def _get_conn() -> DBConnection:
+    """Return a new DBConnection (either SQLite or PostgreSQL)."""
+    return DBConnection()
 
 
 # ---------------------------------------------------------------------------
@@ -45,32 +92,53 @@ def _get_conn() -> sqlite3.Connection:
 def init_db() -> None:
     """Create tables if they do not already exist."""
     conn = _get_conn()
+
+    responses_schema = """
+    CREATE TABLE IF NOT EXISTS responses (
+        id              SERIAL PRIMARY KEY,
+        survey_id       TEXT    NOT NULL,
+        pedagogy_id     TEXT    NOT NULL,
+        pedagogy_name   TEXT    NOT NULL,
+        effectiveness   INTEGER NOT NULL CHECK (effectiveness BETWEEN 0 AND 5),
+        engagement      INTEGER NOT NULL CHECK (engagement    BETWEEN 0 AND 5),
+        clarity         INTEGER NOT NULL CHECK (clarity       BETWEEN 0 AND 5),
+        relevance       INTEGER NOT NULL CHECK (relevance     BETWEEN 0 AND 5),
+        feedback        TEXT    NOT NULL,
+        absa_result_json TEXT   NOT NULL,
+        FOREIGN KEY (survey_id) REFERENCES surveys (id)
+    );
+    """ if IS_POSTGRES else """
+    CREATE TABLE IF NOT EXISTS responses (
+        id              INTEGER PRIMARY KEY AUTOINCREMENT,
+        survey_id       TEXT    NOT NULL,
+        pedagogy_id     TEXT    NOT NULL,
+        pedagogy_name   TEXT    NOT NULL,
+        effectiveness   INTEGER NOT NULL CHECK (effectiveness BETWEEN 0 AND 5),
+        engagement      INTEGER NOT NULL CHECK (engagement    BETWEEN 0 AND 5),
+        clarity         INTEGER NOT NULL CHECK (clarity       BETWEEN 0 AND 5),
+        relevance       INTEGER NOT NULL CHECK (relevance     BETWEEN 0 AND 5),
+        feedback        TEXT    NOT NULL,
+        absa_result_json TEXT   NOT NULL,
+        FOREIGN KEY (survey_id) REFERENCES surveys (id)
+    );
+    """
+
     try:
         conn.executescript(
-            """
+            f"""
             CREATE TABLE IF NOT EXISTS surveys (
                 id          TEXT PRIMARY KEY,
                 submitted_at TEXT NOT NULL,
                 student_email TEXT UNIQUE
             );
-
-            CREATE TABLE IF NOT EXISTS responses (
-                id              INTEGER PRIMARY KEY AUTOINCREMENT,
-                survey_id       TEXT    NOT NULL,
-                pedagogy_id     TEXT    NOT NULL,
-                pedagogy_name   TEXT    NOT NULL,
-                effectiveness   INTEGER NOT NULL CHECK (effectiveness BETWEEN 0 AND 5),
-                engagement      INTEGER NOT NULL CHECK (engagement    BETWEEN 0 AND 5),
-                clarity         INTEGER NOT NULL CHECK (clarity       BETWEEN 0 AND 5),
-                relevance       INTEGER NOT NULL CHECK (relevance     BETWEEN 0 AND 5),
-                feedback        TEXT    NOT NULL,
-                absa_result_json TEXT   NOT NULL,
-                FOREIGN KEY (survey_id) REFERENCES surveys (id)
-            );
+            {responses_schema}
             """
         )
         conn.commit()
-        logger.info("Database initialised at %s", DB_PATH)
+        if IS_POSTGRES:
+            logger.info("PostgreSQL database initialised.")
+        else:
+            logger.info("Database initialised at %s", DB_PATH)
     finally:
         conn.close()
 
@@ -141,8 +209,8 @@ def insert_survey(
 # ---------------------------------------------------------------------------
 
 
-def _row_to_dict(row: sqlite3.Row) -> Dict[str, Any]:
-    """Convert a ``sqlite3.Row`` to a plain dict with parsed ABSA JSON."""
+def _row_to_dict(row: sqlite3.Row | dict[str, Any]) -> Dict[str, Any]:
+    """Convert a ``sqlite3.Row`` or dict to a plain dict with parsed ABSA JSON."""
     d = dict(row)
     if "absa_result_json" in d:
         d["absa_result"] = json.loads(d["absa_result_json"])

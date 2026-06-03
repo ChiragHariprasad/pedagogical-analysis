@@ -9,3 +9,5 @@ indic-transliteration
 google-genai
 python-dotenv
 google-auth
+psycopg2-binary
+
