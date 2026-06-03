@@ -146,7 +146,7 @@ export default function Dashboard({ onLogout }) {
   /* ── Compute aspect scores & find weakest ── */
   const aspectCards = Object.entries(pedagogyStats).map(([pid, stats]) => {
     const meta = PEDAGOGY_META[pid] || { name: pid, icon: '📋' };
-    const avgs = DIMENSIONS.map(d => stats[`avg_${d}`] || 0);
+    const avgs = DIMENSIONS.map(d => Number(stats[`avg_${d}`]) || 0);
     const overall = avgs.filter(v => v > 0).length > 0
       ? Math.round((avgs.reduce((a, b) => a + b, 0) / avgs.filter(v => v > 0).length / 5) * 100)
       : 0;
@@ -355,7 +355,7 @@ export default function Dashboard({ onLogout }) {
             {/* Rating bars */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem', marginBottom: '1rem' }}>
               {DIMENSIONS.map(d => {
-                const val = stats[`avg_${d}`] || 0;
+                const val = Number(stats[`avg_${d}`]) || 0;
                 return (
                   <div key={d} style={{ textAlign: 'center' }}>
                     <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'capitalize', marginBottom: '0.25rem' }}>{d}</div>
