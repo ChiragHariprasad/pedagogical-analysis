@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+spacy
+transformers
+langdetect
+torch
+pydantic
+indic-transliteration
+google-genai
+python-dotenv
+google-auth
