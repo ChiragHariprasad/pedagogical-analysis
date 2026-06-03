@@ -43,7 +43,7 @@ function LikertScale({ questionKey, rating, onRate, pedagogyId, accentColor }) {
   const [hoveredValue, setHoveredValue] = useState(null);
 
   return (
-    <div className="likert-scale" id={`likert-${pedagogyId}-${questionKey}`}>
+    <div className="likert-scale-modern" id={`likert-${pedagogyId}-${questionKey}`}>
       {LIKERT_OPTIONS.map((option) => {
         const isSelected = rating === option.value;
         const isHovered = hoveredValue === option.value;
@@ -52,7 +52,7 @@ function LikertScale({ questionKey, rating, onRate, pedagogyId, accentColor }) {
           <button
             key={option.value}
             type="button"
-            className={`likert-option ${isSelected ? 'selected' : ''} ${isHovered && !isSelected ? 'hovered' : ''}`}
+            className={`likert-option-modern ${isSelected ? 'selected' : ''} ${isHovered && !isSelected ? 'hovered' : ''}`}
             id={`likert-${pedagogyId}-${questionKey}-${option.value}`}
             style={{
               '--option-accent': accentColor,
@@ -64,8 +64,8 @@ function LikertScale({ questionKey, rating, onRate, pedagogyId, accentColor }) {
             aria-label={`Rate ${questionKey} as ${option.label}`}
             title={option.label}
           >
-            <span className="likert-option-value">{option.value}</span>
-            <span className="likert-option-label">{option.label}</span>
+            <span className="likert-option-value-modern">{option.value}</span>
+            <span className="likert-option-label-modern">{option.label}</span>
           </button>
         );
       })}
@@ -87,11 +87,11 @@ export default function SurveyForm({ pedagogy, ratings, onChange, animDirection 
   if (feedbackLen > 0 && feedbackLen < 10) charCountClass += ' warning';
   else if (feedbackLen >= 10) charCountClass += ' valid';
 
-  const animClass = animDirection === 'back' ? 'step-back' : 'step-enter';
+  const animClass = animDirection === 'back' ? 'step-back-modern' : 'step-enter-modern';
 
   return (
     <div
-      className={`pedagogy-card ${animClass}`}
+      className={`pedagogy-card-premium ${animClass}`}
       style={{ '--card-accent': pedagogy.color }}
       id={`pedagogy-card-${pedagogy.id}`}
       key={pedagogy.id}
@@ -117,13 +117,13 @@ export default function SurveyForm({ pedagogy, ratings, onChange, animDirection 
             key={q.key}
             id={`question-block-${pedagogy.id}-${q.key}`}
           >
-            <div className="survey-question-header">
+            <div className="survey-question-header-modern">
               <span className="survey-question-number" style={{ color: pedagogy.color }}>
                 {q.number}
               </span>
               <span className="survey-question-icon">{q.icon}</span>
             </div>
-            <p className="survey-question-text" id={`question-text-${pedagogy.id}-${q.key}`}>
+            <p className="survey-question-text-modern" id={`question-text-${pedagogy.id}-${q.key}`}>
               {q.question}
             </p>
             <LikertScale
@@ -142,20 +142,20 @@ export default function SurveyForm({ pedagogy, ratings, onChange, animDirection 
         className="survey-question-block"
         id={`question-block-${pedagogy.id}-feedback`}
       >
-        <div className="survey-question-header">
+        <div className="survey-question-header-modern">
           <span className="survey-question-number" style={{ color: pedagogy.color }}>
             Q5
           </span>
           <span className="survey-question-icon">✍️</span>
         </div>
-        <p className="survey-question-text" id={`question-text-${pedagogy.id}-feedback`}>
+        <p className="survey-question-text-modern" id={`question-text-${pedagogy.id}-feedback`}>
           In your own words, describe your experience with this teaching method. What aspects did you find most helpful? What improvements would you suggest?
           <span className="survey-question-hint"> (You can write in English, Hindi, or Hinglish)</span>
         </p>
 
         <div className="feedback-textarea-wrapper" id={`feedback-wrapper-${pedagogy.id}`}>
           <textarea
-            className="feedback-textarea"
+            className="feedback-textarea-modern"
             id={`feedback-${pedagogy.id}`}
             placeholder={`Share your detailed thoughts about ${pedagogy.name}...\n\nFor example: "The ${pedagogy.name.toLowerCase()} sessions were very helpful because..." or mix languages: "Lectures were clear but thoda boring tha, more interactive examples chahiye."`}
             value={currentRatings.feedback || ''}

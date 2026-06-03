@@ -66,7 +66,7 @@ function SurveyPage({ ratings, onRatingChange }) {
     <div className="survey-step-container" id="survey-step-container">
       <ProgressBar currentStep={progressStep} totalSteps={8} />
 
-      <div key={pedagogy.id} style={{ animation: animDirection === 'back' ? 'slideInLeft 0.4s ease-out' : 'slideInRight 0.4s ease-out' }}>
+      <div key={pedagogy.id}>
         <SurveyForm
           pedagogy={pedagogy}
           ratings={ratings[pedagogy.id]}

@@ -4,25 +4,26 @@
    ============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
+@import './modern.css';
 
 /* ── Design Tokens ── */
 :root {
-  --bg-gradient-start: #0a0e1a;
-  --bg-gradient-end: #1a1040;
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-bg-hover: rgba(255, 255, 255, 0.06);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-hover: rgba(255, 255, 255, 0.15);
+  --bg-gradient-start: #050816;
+  --bg-gradient-end: #050816;
+  --glass-bg: rgba(17, 24, 39, 0.85);
+  --glass-bg-hover: rgba(31, 41, 55, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-hover: rgba(139, 92, 246, 0.4);
 
-  --primary: #6366f1;
-  --primary-hover: #4f46e5;
-  --primary-light: #818cf8;
-  --secondary: #a855f7;
-  --accent: #c084fc;
+  --primary: #8B5CF6;
+  --primary-hover: #7C3AED;
+  --primary-light: #A78BFA;
+  --secondary: #A855F7;
+  --accent: #22D3EE;
 
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
 
   --success: #10b981;
   --success-bg: rgba(16, 185, 129, 0.1);
@@ -73,7 +74,9 @@ html {
 
 body {
   font-family: var(--font-body);
-  background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+  background: radial-gradient(circle at top left, rgba(139,92,246,0.25), transparent 40%),
+              radial-gradient(circle at bottom right, rgba(79,70,229,0.2), transparent 40%),
+              #050816;
   background-attachment: fixed;
   color: var(--text-primary);
   min-height: 100vh;
@@ -481,8 +484,8 @@ h1, h2, h3, h4, h5, h6 {
   top: 50%;
   left: 24px;
   right: 24px;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.08);
+  height: 4px;
+  background: rgba(255, 255, 255, 0.05);
   transform: translateY(-50%);
   border-radius: 2px;
   z-index: 0;
@@ -492,8 +495,9 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   top: 50%;
   left: 24px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  height: 4px;
+  background: linear-gradient(90deg, #8B5CF6, #22D3EE);
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
   transform: translateY(-50%);
   border-radius: 2px;
   z-index: 1;
@@ -533,16 +537,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .progress-step.completed .progress-step-circle {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  background: linear-gradient(135deg, #8B5CF6, #A855F7);
   border-color: transparent;
   color: white;
-  box-shadow: 0 0 20px -5px var(--primary);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
 }
 
 .progress-step.active .progress-step-circle {
-  border-color: var(--primary);
-  color: var(--primary-light);
-  background: rgba(99, 102, 241, 0.15);
+  border-color: #8B5CF6;
+  color: #8B5CF6;
+  background: rgba(139, 92, 246, 0.15);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  transform: scale(1.15);
   animation: pulse 2s ease-in-out infinite;
 }
 
@@ -570,7 +576,7 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   gap: 0.5rem;
   padding: 0.85rem 2rem;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  background: linear-gradient(135deg, #8B5CF6, #A855F7);
   color: white;
   border: none;
   border-radius: var(--radius-full);
@@ -589,14 +595,14 @@ h1, h2, h3, h4, h5, h6 {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, var(--primary-hover), #7c3aed);
+  background: linear-gradient(135deg, #7C3AED, #9333EA);
   opacity: 0;
   transition: opacity var(--transition-base);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.5);
+  box-shadow: 0 12px 30px -10px rgba(139, 92, 246, 0.5);
 }
 
 .btn-primary:hover::before {

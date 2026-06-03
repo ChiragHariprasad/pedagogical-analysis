@@ -46,7 +46,7 @@ export default function LoginPage({ onLoginSuccess }) {
 
   return (
     <div className="login-page" id="login-page">
-      <div className="login-card glass-card-elevated" id="login-card">
+      <div className="login-card pedagogy-card-premium" id="login-card" style={{ maxWidth: '520px', padding: '3rem 2.5rem', margin: '0 auto' }}>
         {/* College Branding */}
         <div className="login-branding" id="login-branding">
           <div className="login-college-logo" id="login-college-logo">
@@ -55,32 +55,32 @@ export default function LoginPage({ onLoginSuccess }) {
           <h2 className="login-college-name" id="login-college-name">
             RV College of Engineering
           </h2>
-          <p className="login-department" id="login-department">
+          <p className="login-department" id="login-department" style={{ color: '#94A3B8' }}>
             Department of Artificial Intelligence &amp; Machine Learning
           </p>
         </div>
 
         {/* Survey Title */}
         <div className="login-title-section" id="login-title-section">
-          <h1 className="login-title gradient-text" id="login-title">
+          <h1 className="login-title gradient-text" id="login-title" style={{ fontSize: '1.8rem', marginBottom: '0.35rem' }}>
             NLP Course Feedback Survey
           </h1>
-          <p className="login-subtitle" id="login-subtitle">
+          <p className="login-subtitle" id="login-subtitle" style={{ color: '#94A3B8' }}>
             VI Semester — Academic Year 2025–26
           </p>
         </div>
 
         {/* Instructions */}
-        <div className="login-instructions" id="login-instructions">
-          <div className="login-instruction-item">
+        <div className="login-instructions" id="login-instructions" style={{ color: '#94A3B8' }}>
+          <div className="login-instruction-item" style={{ color: '#94A3B8' }}>
             <span className="login-instruction-icon">🔐</span>
             <span>Sign in with your college email (<strong>@rvce.edu.in</strong>) to begin the survey.</span>
           </div>
-          <div className="login-instruction-item">
+          <div className="login-instruction-item" style={{ color: '#94A3B8' }}>
             <span className="login-instruction-icon">📝</span>
             <span>Each student can submit only <strong>once</strong>. Your responses are confidential.</span>
           </div>
-          <div className="login-instruction-item">
+          <div className="login-instruction-item" style={{ color: '#94A3B8' }}>
             <span className="login-instruction-icon">⏱️</span>
             <span>The questionnaire takes approximately <strong>5–10 minutes</strong> to complete.</span>
           </div>
@@ -111,7 +111,7 @@ export default function LoginPage({ onLoginSuccess }) {
         </div>
 
         {/* Footer */}
-        <p className="login-footer" id="login-footer">
+        <p className="login-footer" id="login-footer" style={{ color: '#9ca3af', marginTop: '2rem', fontSize: '0.85rem' }}>
           Pedagogical Intelligence System • Powered by ABSA &amp; Gemini AI
         </p>
       </div>
