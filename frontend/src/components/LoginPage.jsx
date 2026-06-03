@@ -1,39 +1,21 @@
 import { useState } from 'react';
+import { GoogleLogin } from '@react-oauth/google';
 
 const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
 
 export default function LoginPage({ onLoginSuccess }) {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const trimmedEmail = email.trim().toLowerCase();
-    const trimmedName = name.trim();
-
-    if (!trimmedEmail) {
-      setError('Please enter your college email address.');
-      return;
-    }
-    if (!trimmedEmail.endsWith('@rvce.edu.in')) {
-      setError('Only @rvce.edu.in college email addresses are allowed.');
-      return;
-    }
-    if (!trimmedName) {
-      setError('Please enter your full name.');
-      return;
-    }
-
+  const handleGoogleSuccess = async (credentialResponse) => {
     setLoading(true);
     setError('');
 
     try {
-      const res = await fetch(`${API_BASE}/api/auth/email`, {
+      const res = await fetch(`${API_BASE}/api/auth/google`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: trimmedEmail, name: trimmedName }),
+        body: JSON.stringify({ credential: credentialResponse.credential }),
       });
 
       const data = await res.json();
@@ -104,57 +86,29 @@ export default function LoginPage({ onLoginSuccess }) {
           </div>
         </div>
 
-        {/* Login Form */}
-        <form onSubmit={handleSubmit} className="login-form" id="login-form">
-          <div className="login-input-group">
-            <label htmlFor="login-name-input" className="login-input-label">Full Name</label>
-            <input
-              type="text"
-              className="login-input"
-              id="login-name-input"
-              placeholder="e.g. Manoj Malipatil"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              autoFocus
+        {/* Google Login Area */}
+        <div className="login-form" id="login-form" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', marginTop: '1rem' }}>
+          {loading ? (
+            <div style={{ color: 'var(--text-light)' }}>Authenticating...</div>
+          ) : (
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={() => setError('Google Login Failed')}
+              useOneTap
+              theme="filled_blue"
+              shape="pill"
+              text="continue_with"
             />
-          </div>
-
-          <div className="login-input-group">
-            <label htmlFor="login-email-input" className="login-input-label">College Email</label>
-            <input
-              type="email"
-              className="login-input"
-              id="login-email-input"
-              placeholder="e.g. yourname.aiml21@rvce.edu.in"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
+          )}
 
           {/* Error Display */}
           {error && (
-            <div className="login-error" id="login-error">
+            <div className="login-error" id="login-error" style={{ width: '100%', marginTop: '1rem' }}>
               <span className="login-error-icon">⚠️</span>
               <span>{error}</span>
             </div>
           )}
-
-          <button
-            type="submit"
-            className="login-submit-btn"
-            id="login-submit-btn"
-            disabled={loading}
-          >
-            {loading ? (
-              <span>Authenticating...</span>
-            ) : (
-              <>
-                <span>🔓</span>
-                <span>Sign In & Start Survey</span>
-              </>
-            )}
-          </button>
-        </form>
+        </div>
 
         {/* Footer */}
         <p className="login-footer" id="login-footer">
