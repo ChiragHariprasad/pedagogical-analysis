@@ -328,7 +328,7 @@ def get_analytics(pedagogy_id: Optional[str] = None) -> Dict[str, Any]:
                 AVG(r.relevance)            AS avg_relevance
             FROM responses r
             {where}
-            GROUP BY r.pedagogy_id
+            GROUP BY r.pedagogy_id, r.pedagogy_name
             ORDER BY avg_effectiveness DESC
             """,
             params,
