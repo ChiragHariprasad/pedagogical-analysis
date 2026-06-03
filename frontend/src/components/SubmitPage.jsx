@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
+
 const DIMENSIONS = ['effectiveness', 'engagement', 'clarity', 'relevance'];
 const DIM_LABELS = { effectiveness: '📊 Effect.', engagement: '🎯 Engage.', clarity: '💡 Clarity', relevance: '🔗 Relev.' };
 
@@ -89,7 +91,7 @@ export default function SubmitPage({ pedagogies, ratings, onSubmit, authToken })
         headers['Authorization'] = `Bearer ${authToken}`;
       }
 
-      const response = await fetch('http://localhost:8000/api/survey/submit', {
+      const response = await fetch(`${API_BASE}/api/survey/submit`, {
         method: 'POST',
         headers,
         body: JSON.stringify({ responses: submissions }),

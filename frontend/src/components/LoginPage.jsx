@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
+
 export default function LoginPage({ onLoginSuccess }) {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -28,7 +30,7 @@ export default function LoginPage({ onLoginSuccess }) {
     setError('');
 
     try {
-      const res = await fetch('http://localhost:8000/api/auth/email', {
+      const res = await fetch(`${API_BASE}/api/auth/email`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: trimmedEmail, name: trimmedName }),

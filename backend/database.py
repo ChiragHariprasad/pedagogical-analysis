@@ -17,9 +17,11 @@ from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
-DB_PATH: str = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "survey_data.db"
+DB_PATH: str = os.environ.get(
+    "DATABASE_PATH",
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "survey_data.db")
 )
+
 
 # ---------------------------------------------------------------------------
 # Connection helper

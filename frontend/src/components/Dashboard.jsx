@@ -12,7 +12,7 @@ const PEDAGOGY_META = {
 
 const DIMENSIONS = ['effectiveness', 'engagement', 'clarity', 'relevance'];
 const DIM_LABELS = ['Effectiveness', 'Engagement', 'Clarity', 'Relevance'];
-const API_BASE = 'http://localhost:8000';
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
 
 function CountingNumber({ target, duration = 1500 }) {
   const [value, setValue] = useState(0);

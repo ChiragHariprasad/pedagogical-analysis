@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
 
 export default function TeacherLogin({ onLoginSuccess }) {
   const [password, setPassword] = useState('');
@@ -27,7 +27,7 @@ export default function TeacherLogin({ onLoginSuccess }) {
         setError(errData.detail || 'Invalid password. Please try again.');
       }
     } catch {
-      setError('Cannot connect to server. Please ensure the backend is running on port 8000.');
+      setError('Cannot connect to server. Please ensure the backend is running.');
     } finally {
       setLoading(false);
     }
