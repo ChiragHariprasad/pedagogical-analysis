@@ -10,4 +10,9 @@ google-genai
 python-dotenv
 google-auth
 psycopg2-binary
+scikit-learn
+accelerate
+numpy
+datasets
+psutil
 

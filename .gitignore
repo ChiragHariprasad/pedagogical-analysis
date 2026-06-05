@@ -93,3 +93,15 @@ lerna-debug.log*
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# ==========================================
+# ML Models, Checkpoints & Datasets
+# ==========================================
+*.safetensors
+*.bin
+*.pth
+*.pt
+checkpoint-*/
+fine_tuned_*/
+*.pdf
+pdf_content.txt

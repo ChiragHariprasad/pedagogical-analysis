@@ -4,16 +4,16 @@ Intelligence System.
 
 Architecture
 ------------
-1. **preprocess_hinglish** – detect language via *langdetect*; replace
+1. **preprocess_hinglish**  detect language via *langdetect*; replace
    Hinglish tokens using the curated ``HINGLISH_DICT``.
-2. **split_clauses** – break compound sentences at conjunctions so each
+2. **split_clauses**  break compound sentences at conjunctions so each
    clause can be scored independently (handles contradictory sentiments).
-3. **extract_aspects** – SpaCy dependency parsing to find NOUNs/PROPNs in
+3. **extract_aspects** SpaCy dependency parsing to find NOUNs/PROPNs in
    the aspect lexicon, then gather each aspect's governing-verb subtree as
    context and collect descriptors (``amod`` / ``advmod``).
-4. **classify_sentiment** – run a HuggingFace transformer on the clause to
+4. **classify_sentiment** run a HuggingFace transformer on the clause to
    produce ``{sentiment, polarity_score}``.
-5. **run_absa_pipeline** – orchestrates all steps and returns an
+5. **run_absa_pipeline** orchestrates all steps and returns an
    ``ABSAResult``-shaped dict.
 
 Model selection (tried in order):
