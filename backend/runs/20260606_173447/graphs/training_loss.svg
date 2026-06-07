@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="360" viewBox="0 0 980 360">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="78" y="26" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#111827">Training Loss Progression</text>
+<text x="78" y="45" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">A downward trend usually indicates the model is learning.</text>
+<line x1="78" y1="298.00" x2="952" y2="298.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="68" y="302.00" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">0.1</text>
+<line x1="78" y1="250.00" x2="952" y2="250.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="68" y="254.00" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">0.6</text>
+<line x1="78" y1="202.00" x2="952" y2="202.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="68" y="206.00" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">1.0</text>
+<line x1="78" y1="154.00" x2="952" y2="154.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="68" y="158.00" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">1.5</text>
+<line x1="78" y1="106.00" x2="952" y2="106.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="68" y="110.00" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">1.9</text>
+<line x1="78" y1="58.00" x2="952" y2="58.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="68" y="62.00" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">2.4</text>
+<line x1="78.00" y1="58" x2="78.00" y2="298" stroke="#f3f4f6" stroke-width="1"/>
+<text x="78.00" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">100.0</text>
+<line x1="252.80" y1="58" x2="252.80" y2="298" stroke="#f3f4f6" stroke-width="1"/>
+<text x="252.80" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">1,940.0</text>
+<line x1="427.60" y1="58" x2="427.60" y2="298" stroke="#f3f4f6" stroke-width="1"/>
+<text x="427.60" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">3,780.0</text>
+<line x1="602.40" y1="58" x2="602.40" y2="298" stroke="#f3f4f6" stroke-width="1"/>
+<text x="602.40" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">5,620.0</text>
+<line x1="777.20" y1="58" x2="777.20" y2="298" stroke="#f3f4f6" stroke-width="1"/>
+<text x="777.20" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">7,460.0</text>
+<line x1="952.00" y1="58" x2="952.00" y2="298" stroke="#f3f4f6" stroke-width="1"/>
+<text x="952.00" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">9,300.0</text>
+<line x1="78" y1="58" x2="78" y2="298" stroke="#9ca3af" stroke-width="1.2"/>
+<line x1="78" y1="298" x2="952" y2="298" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="515.00" y="346" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#374151">Optimizer step</text>
+<text x="18" y="178.00" text-anchor="middle" transform="rotate(-90 18 178.00)" font-family="Arial, sans-serif" font-size="12" fill="#374151">Loss</text>
+<line x1="702" y1="24" x2="724" y2="24" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+<text x="730" y="28" font-family="Arial, sans-serif" font-size="11" fill="#374151">Training loss</text>
+<polyline points="78.00,81.23 87.50,108.84 97.00,163.45 106.50,189.88 116.00,200.20 125.50,204.40 135.00,212.31 144.50,209.92 154.00,211.55 163.50,215.50 173.00,220.32 182.50,226.23 192.00,225.12 201.50,221.04 211.00,222.14 220.50,222.70 230.00,223.26 239.50,222.38 249.00,223.85 258.50,227.93 268.00,228.77 277.50,227.99 287.00,229.64 296.50,224.04 306.00,231.67 315.50,227.25 325.00,227.06 334.50,230.91 344.00,230.63 353.50,226.06 363.00,234.44 372.50,245.73 382.00,250.88 391.50,248.29 401.00,252.37 410.50,248.51 420.00,245.36 429.50,251.45 439.00,245.22 448.50,250.56 458.00,248.68 467.50,248.82 477.00,248.00 486.50,248.06 496.00,248.57 505.50,250.67 515.00,251.11 524.50,247.37 534.00,248.55 543.50,256.99 553.00,252.93 562.50,250.88 572.00,246.26 581.50,254.11 591.00,252.01 600.50,250.78 610.00,252.69 619.50,250.27 629.00,248.88 638.50,253.03 648.00,250.39 657.50,255.28 667.00,256.56 676.50,266.21 686.00,267.93 695.50,264.98 705.00,265.26 714.50,262.21 724.00,271.39 733.50,269.93 743.00,268.36 752.50,266.68 762.00,267.60 771.50,269.47 781.00,268.65 790.50,267.43 800.00,269.89 809.50,263.65 819.00,266.71 828.50,265.59 838.00,262.72 847.50,267.63 857.00,264.21 866.50,273.47 876.00,269.58 885.50,271.54 895.00,271.81 904.50,268.76 914.00,274.77 923.50,269.08 933.00,272.46 942.50,271.66 952.00,274.13" fill="none" stroke="#2563eb" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="952.00" cy="274.13" r="3.4" fill="#2563eb"/>
+</svg>
